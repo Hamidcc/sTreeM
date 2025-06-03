@@ -48,7 +48,7 @@
                 let seconds = data.seconds;
                 const minutes = Math.floor(seconds / 60);
                 seconds = seconds % 60;
-                timerElem.textContent = ⏳ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')};
+timerElem.textContent = `⏳ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             } catch (err) {
                 console.error('Failed to fetch timer:', err);
             }
