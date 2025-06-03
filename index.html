@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            background: transparent;
+            color: white;
+            font-size: 48px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        #timer {
+            margin-bottom: 20px;
+        }
+        #chaos {
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer">⏳ 00:00</div>
+    <img id="chaos" src="" alt="Random gif">
+
+    <script>
+        const timerElem = document.getElementById('timer');
+        const chaosImg = document.getElementById('chaos');
+        const images = [
+            "https://i.pinimg.com/originals/2f/5d/47/2f5d47ccad4db6a5bdf3982a19b01cb9.gif",
+            "https://media.tenor.com/7l4PXSCFjjQAAAAM/huh-cat.gif",
+            "https://www.icegif.com/wp-content/uploads/2023/01/icegif-162.gif",
+            "https://media3.giphy.com/media/nu8afydwOkzgqLjerc/200w.gif?cid=6c09b95234x4mkpxtev8l64nilollb5yxps2i0wiy18q8ue2&ep=v1_gifs_search&rid=200w.gif&ct=g",
+            "https://i.imgur.com/Hj0gBkN.gif"
+        ];
+
+        // Function to update timer from server
+        async function updateTimer() {
+            try {
+                const response = await fetch('/time');
+                const data = await response.json();
+                let seconds = data.seconds;
+                const minutes = Math.floor(seconds / 60);
+                seconds = seconds % 60;
+                timerElem.textContent = ⏳ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')};
+            } catch (err) {
+                console.error('Failed to fetch timer:', err);
+            }
+        }
+
+        // Show random image animation
+        function showRandomImage() {
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            chaosImg.src = randomImage;
+            chaosImg.style.opacity = 1;
+
+            setTimeout(() => {
+                chaosImg.style.opacity = 0;
+            }, 2000);
+
+            const nextDelay = Math.floor(Math.random() * 25 + 5) * 1000;
+            setTimeout(showRandomImage, nextDelay);
+        }
+
+        // Start periodic updates
+        setInterval(updateTimer, 1000);
+        updateTimer(); // initial call
+        setTimeout(showRandomImage, 1000);
+
+    </script>
+</body>
+</html>
