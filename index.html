@@ -1,78 +1,186 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <style>
-        body {
-            margin: 0;
-            background: transparent;
-            color: white;
-            font-size: 48px;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-        #timer {
-            margin-bottom: 20px;
-        }
-        #chaos {
-            width: 200px;
-            height: 200px;
-            opacity: 0;
-            transition: opacity 1s;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>YouTube Experiment Disclaimer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  /* Reset */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: 'Poppins', sans-serif;
+    color: #e0e7ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+    overflow-x: hidden;
+    animation: bodyFadeIn 1.8s ease forwards;
+  }
+
+  @keyframes bodyFadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  .container {
+    background: rgba(30, 48, 114, 0.85);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 3rem 3rem 3.5rem;
+    max-width: 520px;
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.45),
+      inset 0 0 0 1.5px rgba(255, 255, 255, 0.12);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    animation: containerSlideUp 1.4s ease forwards;
+  }
+
+  @keyframes containerSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: #dbe9ff;
+    text-shadow:
+      0 0 6px #a3befc,
+      0 0 12px #a3befc;
+    animation: glowPulse 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glowPulse {
+    0% {
+      text-shadow:
+        0 0 8px #a3befc,
+        0 0 18px #a3befc;
+    }
+    100% {
+      text-shadow:
+        0 0 20px #d9f0ff,
+        0 0 30px #d9f0ff,
+        0 0 40px #d9f0ff;
+    }
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    color: #b8c6ff;
+    user-select: text;
+    letter-spacing: 0.02em;
+  }
+
+  strong {
+    color: #f0f7ff;
+  }
+
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  a.button {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #2547c4;
+    padding: 0.85rem 1.8rem;
+    border-radius: 40px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 6px 14px rgba(38, 72, 179, 0.6);
+    transition:
+      background 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+    flex: 1 1 45%;
+    max-width: 240px;
+    user-select: none;
+    animation: buttonFadeIn 1.6s ease forwards;
+    will-change: transform, box-shadow;
+  }
+
+  @keyframes buttonFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  a.button:hover,
+  a.button:focus {
+    background: linear-gradient(135deg, #2547c4, #4c89ff);
+    box-shadow: 0 8px 25px rgba(38, 72, 179, 0.9);
+    transform: translateY(-4px) scale(1.05);
+    outline: none;
+  }
+
+  a.button svg.google-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 0.3px rgba(0,0,0,0.2));
+    transition: filter 0.3s ease;
+  }
+
+  a.button:hover svg.google-icon,
+  a.button:focus svg.google-icon {
+    filter: drop-shadow(0 0 1px rgba(0,0,0,0.4));
+  }
+
+  /* Responsive */
+  @media (max-width: 420px) {
+    .container {
+      padding: 2rem 2rem 2.5rem;
+      max-width: 90vw;
+    }
+
+    a.button {
+      flex-basis: 100%;
+      max-width: 100%;
+      justify-content: center;
+    }
+  }
+
+</style>
 </head>
 <body>
-    <div id="timer">⏳ 00:00</div>
-    <img id="chaos" src="" alt="Random gif">
-
-    <script>
-        const timerElem = document.getElementById('timer');
-        const chaosImg = document.getElementById('chaos');
-        const images = [
-            "https://i.pinimg.com/originals/2f/5d/47/2f5d47ccad4db6a5bdf3982a19b01cb9.gif",
-            "https://media.tenor.com/7l4PXSCFjjQAAAAM/huh-cat.gif",
-            "https://www.icegif.com/wp-content/uploads/2023/01/icegif-162.gif",
-            "https://media3.giphy.com/media/nu8afydwOkzgqLjerc/200w.gif?cid=6c09b95234x4mkpxtev8l64nilollb5yxps2i0wiy18q8ue2&ep=v1_gifs_search&rid=200w.gif&ct=g",
-            "https://i.imgur.com/Hj0gBkN.gif"
-        ];
-
-        // Function to update timer from server
-        async function updateTimer() {
-            try {
-                const response = await fetch('/time');
-                const data = await response.json();
-                let seconds = data.seconds;
-                const minutes = Math.floor(seconds / 60);
-                seconds = seconds % 60;
-timerElem.textContent = `⏳ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } catch (err) {
-                console.error('Failed to fetch timer:', err);
-            }
-        }
-
-        // Show random image animation
-        function showRandomImage() {
-            const randomImage = images[Math.floor(Math.random() * images.length)];
-            chaosImg.src = randomImage;
-            chaosImg.style.opacity = 1;
-
-            setTimeout(() => {
-                chaosImg.style.opacity = 0;
-            }, 2000);
-
-            const nextDelay = Math.floor(Math.random() * 25 + 5) * 1000;
-            setTimeout(showRandomImage, nextDelay);
-        }
-
-        // Start periodic updates
-        setInterval(updateTimer, 1000);
-        updateTimer(); // initial call
-        setTimeout(showRandomImage, 1000);
-
-    </script>
+  <div class="container" role="main" aria-label="YouTube Experiment Disclaimer">
+    <h1>Important Notice</h1>
+    <p>
+      This channel is solely an experimental platform for showcasing innovative products. We do <strong>not</strong> sell or endorse any of the items featured here. We apologize for any confusion this may cause.<br><br>
+      If you are interested in purchasing these products, please search for them from trusted online retailers.<br><br>
+      Thank you for your understanding and support.
+    </p>
+  </div>
 </body>
 </html>
